@@ -1,16 +1,37 @@
 <html>
     <canvas 
         id="gameCanvas"
-        width="800"
+        width="600"
         height="600">
     </canvas>
     <script>
         var canvas;
         var canvasContext;
+        const TAM = 20;
+        var gridMatrix;
 
         window.onload = function() {
             canvas = document.getElementById( 'gameCanvas' );
             canvasContext = canvas.getContext( '2d' );
+            drawEverithing();
+            gridMatrix = fillGrid();
+            drawEverithing();
+            drawEverithing();            
+        }
+
+        function fillGrid() {
+            console.log( "Called fillGrid" );
+            var lin = [];
+            var col = [];
+            for ( pos = 0; pos < canvas.width; pos += TAM ) {
+                lin = lin.concat( pos );
+                col = col.concat( pos );
+            }
+            return [ lin, col ]
+        }
+
+        function drawEverithing() {
+            console.log( "Called drawEverything" );
             canvasContext.fillStyle = 'navy';
             canvasContext.fillRect( 0, 0, canvas.width, canvas.height );
             canvasContext.fillStyle = 'silver';
