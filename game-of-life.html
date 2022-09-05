@@ -4,12 +4,12 @@
         width="600"
         height="600">
     </canvas>
+    
     <script>
         var canvas;
         var canvasContext;
         const TAM = 20;
-        var gridMatrix;
-
+        var grid;
         window.onload = function() {
             canvas = document.getElementById( 'gameCanvas' );
             canvasContext = canvas.getContext( '2d' );
@@ -21,13 +21,15 @@
 
         function fillGrid() {
             console.log( "Called fillGrid" );
-            var lin = [];
-            var col = [];
-            for ( pos = 0; pos < canvas.width; pos += TAM ) {
-                lin = lin.concat( pos );
-                col = col.concat( pos );
+            size = canvas.height / TAM;
+            grid = new Array( size )
+            for ( line = 0; line < grid.length; line++ ) {
+                grid[line] = new Array( size )
+                for ( col = 0; col < grid[line].length; col++ ) {
+                    grid[line][col] = 0;
+                }
             }
-            return [ lin, col ]
+            return grid
         }
 
         function drawEverithing() {
@@ -38,6 +40,5 @@
             canvasContext.fillRect( 100, 100, 20, 20 );
         }
     </script>
-
-
+    
 </html>
