@@ -8,28 +8,52 @@
     <script>
         var canvas;
         var canvasContext;
-        const TAM = 20;
+        const TAM = 10;
+        const CHANCE = [0, 0, 0, 0, 0, 0, 0, 1, 1, 1];
         var grid;
+        var positions;
+
         window.onload = function() {
             canvas = document.getElementById( 'gameCanvas' );
             canvasContext = canvas.getContext( '2d' );
             drawEverithing();
-            gridMatrix = fillGrid();
-            drawEverithing();
-            drawEverithing();            
+            gridMatrix = initializeGrid();
+            drawGrid( gridMatrix, positions );
         }
 
-        function fillGrid() {
+        function initializeGrid() {
             console.log( "Called fillGrid" );
             size = canvas.height / TAM;
-            grid = new Array( size )
+            grid = new Array( size );
+            positions = new Array( size );
             for ( line = 0; line < grid.length; line++ ) {
                 grid[line] = new Array( size )
                 for ( col = 0; col < grid[line].length; col++ ) {
-                    grid[line][col] = 0;
+                    aux = Math.floor(Math.random() * 10);
+                    grid[line][col] = CHANCE[aux];
                 }
             }
+
+            for ( i = 0; i < positions.length; i++ ) {
+                positions[i] = i * TAM;
+            }
             return grid
+        }
+
+        function drawGrid( grid ) {
+            console.log( "Called drawGrid" );
+            for ( i = 0; i < grid[0].length; i++ ) {
+                for ( j = 0; j < grid[0].length; j++ ) {
+                    if ( grid[i][j] == 1 ) {
+                        canvasContext.fillStyle = 'silver';
+                        canvasContext.fillRect( positions[i], positions[j], TAM, TAM );
+                    }
+                }
+            }
+        }
+
+        function gameRound( grid ) {
+            
         }
 
         function drawEverithing() {
@@ -37,7 +61,7 @@
             canvasContext.fillStyle = 'navy';
             canvasContext.fillRect( 0, 0, canvas.width, canvas.height );
             canvasContext.fillStyle = 'silver';
-            canvasContext.fillRect( 100, 100, 20, 20 );
+            canvasContext.fillRect( 100, 100, TAM, TAM );
         }
     </script>
     
